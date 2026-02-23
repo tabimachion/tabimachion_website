@@ -186,14 +186,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, { passive: false });
 
-  // Email spam protection
+  // Email copy to clipboard
   var emailLink = document.getElementById('email-link');
   if (emailLink) {
     emailLink.addEventListener('click', function(e) {
       e.preventDefault();
       var user = 'info';
       var domain = 'tabimachion.com';
-      window.location.href = 'mailto:' + user + '@' + domain;
+      var email = user + '@' + domain;
+      navigator.clipboard.writeText(email).then(function() {
+        var originalText = emailLink.textContent;
+        emailLink.textContent = 'コピーしました！';
+        setTimeout(function() {
+          emailLink.textContent = originalText;
+        }, 2000);
+      });
     });
   }
 });
