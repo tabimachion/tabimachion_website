@@ -7,6 +7,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const nav = document.querySelector('.nav');
   const navLinks = document.querySelectorAll('.nav-list a');
 
+  // Hero fade-in animation
+  const hero = document.querySelector('.hero');
+  const heroContent = document.querySelector('.hero-content');
+  const heroScroll = document.querySelector('.hero-scroll');
+
+  // ヒーロー全体を最初は非表示にしてフェードイン
+  if (hero) {
+    hero.style.opacity = '0';
+    hero.style.transition = 'opacity 0.8s ease';
+    setTimeout(function() {
+      hero.style.opacity = '1';
+    }, 100);
+  }
+
+  // コンテンツは遅れてフェードイン
+  if (heroContent) {
+    heroContent.style.opacity = '0';
+    heroContent.style.transform = 'translateY(40px)';
+    heroContent.style.transition = 'opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1)';
+    setTimeout(function() {
+      heroContent.style.opacity = '1';
+      heroContent.style.transform = 'translateY(0)';
+    }, 600);
+  }
+  if (heroScroll) {
+    heroScroll.style.opacity = '0';
+    heroScroll.style.transition = 'opacity 1s ease';
+    setTimeout(function() {
+      heroScroll.style.opacity = '1';
+    }, 1500);
+  }
+
   // Mobile menu toggle
   if (menuToggle) {
     menuToggle.addEventListener('click', function() {
@@ -73,16 +105,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Observe elements for animation
   const animatedElements = document.querySelectorAll(
-    '.section-header, .about-content, .about-features .feature-card, ' +
-    '.service-card, .brand-card, .work-card, .team-card, ' +
-    '.company-content, .contact-content, .works-clients'
+    '.section-header, .about-content, .feature-item, ' +
+    '.service-item, .brand-item, .work-card, .team-card, ' +
+    '.company-content, .contact-content, .partner-item'
   );
 
   animatedElements.forEach(function(el, index) {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    el.style.transitionDelay = (index % 4) * 0.08 + 's';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+    el.style.transitionDelay = (index % 6) * 0.1 + 's';
     observer.observe(el);
   });
 
