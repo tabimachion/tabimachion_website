@@ -213,11 +213,6 @@ ul {
   z-index: 1;
 }
 
-/* モバイルでは2番目以降の動画を非表示 */
-.hero-slide:not(:first-child) {
-  display: none;
-}
-
 @media (min-width: 769px) {
   .hero-carousel::after {
     background: linear-gradient(
@@ -228,10 +223,6 @@ ul {
     );
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-  }
-
-  .hero-slide:not(:first-child) {
-    display: block;
   }
 }
 
