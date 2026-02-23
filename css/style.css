@@ -460,6 +460,17 @@ ul {
   box-shadow: var(--shadow-md);
 }
 
+.service-media-horizontal {
+  width: 280px;
+}
+
+.service-media-horizontal video {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: cover;
+}
+
 .service-number {
   font-size: 0.75rem;
   font-weight: 500;
