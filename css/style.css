@@ -447,6 +447,17 @@ ul {
   box-shadow: var(--shadow-md);
 }
 
+.service-media-youtube {
+  width: 280px;
+}
+
+.service-media-youtube iframe {
+  width: 100%;
+  height: 158px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
 .service-number {
   font-size: 0.75rem;
   font-weight: 500;
@@ -1041,6 +1052,15 @@ ul {
   .service-media video {
     max-height: 350px;
     border-radius: 12px;
+  }
+
+  .service-media-youtube {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .service-media-youtube iframe {
+    height: 180px;
   }
 
   /* Brands */
