@@ -174,10 +174,15 @@ ul {
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
-  padding: 0 0 80px;
+  padding: 0 0 80px 48px;
   position: relative;
   text-align: left;
   overflow: hidden;
+}
+
+.hero > .container {
+  max-width: none;
+  padding: 0;
 }
 
 .hero-carousel {
@@ -1056,14 +1061,14 @@ ul {
 
   /* Hero */
   .hero {
-    padding: 0 0 40px;
+    padding: 0 20px 40px 20px;
     min-height: 100vh;
     align-items: flex-end;
   }
 
   .hero-content {
     padding: 24px;
-    margin: 0 16px;
+    margin: 0;
     border-radius: 12px;
   }
 
