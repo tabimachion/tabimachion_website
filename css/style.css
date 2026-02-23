@@ -890,6 +890,10 @@ ul {
   background: var(--color-white);
 }
 
+.team .section-header {
+  text-align: center;
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -897,10 +901,10 @@ ul {
 }
 
 .team-grid-2 {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
   max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   gap: 48px;
 }
 
