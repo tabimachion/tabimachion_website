@@ -86,20 +86,89 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(el);
   });
 
-  // Hero video carousel
+  // サービス動画のlazyロード
+  const videoObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const video = entry.target;
+        video.play();
+        videoObserver.unobserve(video);
+      }
+    });
+  }, { rootMargin: '100px' });
+
+  document.querySelectorAll('.service-media video').forEach(function(video) {
+    videoObserver.observe(video);
+  });
+
+  // Hero video carousel (デスクトップのみ)
   const heroSlides = document.querySelectorAll('.hero-slide');
-  if (heroSlides.length > 1) {
-    let currentSlide = 0;
-    const slideInterval = 5000; // 5秒ごとに切り替え
+  let carouselInterval = null;
 
-    function nextSlide() {
-      heroSlides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % heroSlides.length;
-      heroSlides[currentSlide].classList.add('active');
-    }
-
-    setInterval(nextSlide, slideInterval);
+  function isDesktop() {
+    return window.innerWidth >= 769;
   }
+
+  function startCarousel() {
+    if (heroSlides.length > 1 && isDesktop() && !carouselInterval) {
+      let currentSlide = 0;
+
+      // 全動画を再生
+      heroSlides.forEach(function(slide) {
+        const video = slide.querySelector('video');
+        if (video) video.play();
+      });
+
+      carouselInterval = setInterval(function() {
+        heroSlides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % heroSlides.length;
+        heroSlides[currentSlide].classList.add('active');
+      }, 5000);
+    }
+  }
+
+  function stopCarousel() {
+    if (carouselInterval) {
+      clearInterval(carouselInterval);
+      carouselInterval = null;
+
+      // モバイルでは最初の動画のみ再生
+      heroSlides.forEach(function(slide, index) {
+        const video = slide.querySelector('video');
+        if (video) {
+          if (index === 0) {
+            slide.classList.add('active');
+            video.play();
+          } else {
+            slide.classList.remove('active');
+            video.pause();
+          }
+        }
+      });
+    }
+  }
+
+  // 初期化
+  if (isDesktop()) {
+    startCarousel();
+  } else {
+    // モバイル: 最初の動画のみ再生
+    heroSlides.forEach(function(slide, index) {
+      const video = slide.querySelector('video');
+      if (video && index > 0) {
+        video.pause();
+      }
+    });
+  }
+
+  // リサイズ時に切り替え
+  window.addEventListener('resize', function() {
+    if (isDesktop()) {
+      startCarousel();
+    } else {
+      stopCarousel();
+    }
+  });
 
   // Close mobile menu on window resize
   window.addEventListener('resize', function() {
@@ -116,4 +185,15 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
     }
   }, { passive: false });
+
+  // Email spam protection
+  var emailLink = document.getElementById('email-link');
+  if (emailLink) {
+    emailLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      var user = 'info';
+      var domain = 'tabimachion.com';
+      window.location.href = 'mailto:' + user + '@' + domain;
+    });
+  }
 });

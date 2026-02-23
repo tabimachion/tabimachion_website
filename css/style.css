@@ -167,16 +167,16 @@ ul {
 }
 
 /* =============================================
-   Hero
+   Hero (Mobile First)
    ============================================= */
 .hero {
   min-height: 100vh;
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
-  padding: 0 0 80px 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
   position: relative;
-  text-align: left;
+  text-align: center;
   overflow: hidden;
 }
 
@@ -203,13 +203,35 @@ ul {
   height: 100%;
   background: linear-gradient(
     to bottom,
-    rgba(26, 26, 26, 0.1) 0%,
-    rgba(26, 26, 26, 0.4) 50%,
-    rgba(26, 26, 26, 0.85) 100%
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0.75) 50%,
+    rgba(255, 255, 255, 0.9) 100%
   );
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   z-index: 1;
+}
+
+/* モバイルでは2番目以降の動画を非表示 */
+.hero-slide:not(:first-child) {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .hero-carousel::after {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.85) 100%
+    );
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .hero-slide:not(:first-child) {
+    display: block;
+  }
 }
 
 .hero-slide {
@@ -235,17 +257,128 @@ ul {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 560px;
 }
 
+/* Mobile base styles */
 .hero-logo {
-  width: 64px;
+  width: 72px;
   height: auto;
-  margin: 0 0 24px;
+  margin: 0 auto 16px;
   display: block;
-  filter: brightness(0) invert(1);
+  filter: brightness(0);
 }
 
+.hero-company {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+.hero-description {
+  font-size: 0.875rem;
+  line-height: 2;
+  color: var(--color-text);
+  margin-bottom: 32px;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-cta .btn-primary,
+.hero-cta .btn-secondary {
+  width: 100%;
+  max-width: 280px;
+  justify-content: center;
+  padding: 14px 32px;
+}
+
+.hero-cta .btn-primary {
+  background: var(--color-text);
+  color: var(--color-white);
+}
+
+.hero-cta .btn-secondary {
+  background: var(--color-white);
+  color: var(--color-text);
+  border: 1px solid var(--color-text);
+}
+
+.hero-scroll {
+  display: none;
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .hero-logo {
+    width: 100px;
+    margin-bottom: 24px;
+  }
+
+  .hero-company {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-description {
+    font-size: 0.9375rem;
+    margin-bottom: 40px;
+  }
+
+  .hero-cta {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .hero-cta .btn-primary,
+  .hero-cta .btn-secondary {
+    width: auto;
+    max-width: none;
+    padding: 16px 40px;
+  }
+
+  .hero-cta .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 26, 26, 0.2);
+  }
+
+  .hero-cta .btn-secondary:hover {
+    background: var(--color-text);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll {
+    display: block;
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    z-index: 2;
+    animation: bounce 2s infinite;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* Unused hero styles (kept for reference) */
 .hero-label {
   font-size: 0.75rem;
   font-weight: 400;
@@ -266,24 +399,29 @@ ul {
   font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.06em;
-  color: var(--color-white);
-}
-
-.hero-description {
-  font-size: 0.875rem;
-  line-height: 1.9;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 32px;
+  color: var(--color-text);
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 48px;
-  margin-bottom: 48px;
-  padding: 32px 0;
+  gap: 24px;
+  margin-bottom: 32px;
+  padding: 24px 0;
   border-top: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 769px) {
+  .hero-stats {
+    gap: 48px;
+    margin-bottom: 48px;
+    padding: 32px 0;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
 }
 
 .hero-stat {
@@ -293,7 +431,7 @@ ul {
 .stat-number {
   display: block;
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--color-text);
@@ -301,36 +439,15 @@ ul {
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   color: var(--color-text-muted);
   letter-spacing: 0.08em;
 }
 
-.hero-cta {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-
-.hero-cta .btn-primary {
-  background: var(--color-white);
-  color: var(--color-text);
-}
-
-.hero-cta .btn-primary:hover {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.hero-cta .btn-secondary {
-  background: transparent;
-  color: var(--color-white);
-  border-color: rgba(255, 255, 255, 0.5);
-}
-
-.hero-cta .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: var(--color-white);
+@media (min-width: 769px) {
+  .stat-label {
+    font-size: 0.75rem;
+  }
 }
 
 .btn {
@@ -366,16 +483,6 @@ ul {
   border-color: var(--color-text);
 }
 
-.hero-scroll {
-  position: absolute;
-  bottom: 24px;
-  right: 40px;
-  font-size: 0.6875rem;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.6);
-  text-transform: uppercase;
-  z-index: 2;
-}
 
 /* =============================================
    Section Common
@@ -786,6 +893,12 @@ ul {
   gap: 32px;
 }
 
+.team-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .team-card {
   text-align: center;
 }
@@ -820,6 +933,15 @@ ul {
   font-size: 0.75rem;
   color: var(--color-text-muted);
   letter-spacing: 0.02em;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.team-profile {
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+  line-height: 1.8;
+  text-align: left;
 }
 
 /* =============================================
@@ -910,69 +1032,77 @@ ul {
 .footer {
   background: var(--color-text);
   color: var(--color-white);
-  padding: 64px 0 32px;
+  padding: 48px 0 32px;
 }
 
-.footer-content {
+.footer-main {
   display: flex;
   justify-content: space-between;
-  gap: 48px;
-  margin-bottom: 48px;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .footer-logo-img {
   height: 24px;
   width: auto;
-  margin-bottom: 12px;
   filter: invert(1);
 }
 
-.footer-logo {
+.footer-company {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.875rem;
   letter-spacing: 0.08em;
-  display: block;
-  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.footer-brand p {
-  font-size: 0.8125rem;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-links {
+.footer-nav {
   display: flex;
-  gap: 64px;
+  gap: 32px;
 }
 
-.footer-nav,
-.footer-external {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.footer-nav a,
-.footer-external a {
+.footer-nav a {
   font-size: 0.8125rem;
   color: rgba(255, 255, 255, 0.6);
   transition: color 0.3s ease;
+  letter-spacing: 0.04em;
 }
 
-.footer-nav a:hover,
-.footer-external a:hover {
+.footer-nav a:hover {
   color: var(--color-white);
 }
 
 .footer-bottom {
-  padding-top: 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footer-bottom p {
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
   letter-spacing: 0.02em;
+}
+
+.footer-social {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-social a {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: var(--color-white);
 }
 
 /* PC only line break */
@@ -1055,30 +1185,7 @@ ul {
     display: none;
   }
 
-  /* Hero */
-  .hero {
-    padding: 0 20px 40px 20px;
-    min-height: 100vh;
-    align-items: flex-end;
-  }
-
-  .hero-content {
-    padding: 0;
-    margin: 0;
-  }
-
-  .hero-logo {
-    width: 48px;
-    margin-bottom: 16px;
-  }
-
-  .hero-title-line {
-    font-size: 1.5rem;
-  }
-
-  .hero-description {
-    font-size: 0.8125rem;
-  }
+  /* Hero - now mobile-first, see main hero section */
 
   .hero-description br {
     display: none;
@@ -1243,16 +1350,34 @@ ul {
 
   /* Footer */
   .footer {
-    padding: 48px 0 24px;
+    padding: 40px 0 24px;
   }
 
-  .footer-content {
+  .footer-main {
     flex-direction: column;
-    gap: 32px;
+    gap: 24px;
+    text-align: center;
   }
 
-  .footer-links {
-    gap: 32px;
+  .footer-brand {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .footer-social {
+    justify-content: center;
   }
 }
 
@@ -1260,17 +1385,6 @@ ul {
    Responsive - Small Mobile
    ============================================= */
 @media (max-width: 480px) {
-  .hero-cta {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-cta .btn {
-    width: 100%;
-    max-width: 280px;
-    justify-content: center;
-  }
-
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
