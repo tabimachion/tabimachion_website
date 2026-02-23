@@ -86,22 +86,19 @@ document.addEventListener('DOMContentLoaded', function() {
     observer.observe(el);
   });
 
-  // Hero illustration subtle animation
-  const heroIllustration = document.querySelector('.hero-illustration svg');
-  if (heroIllustration) {
-    let floatDirection = 1;
-    let floatPosition = 0;
+  // Hero video carousel
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  if (heroSlides.length > 1) {
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5秒ごとに切り替え
 
-    function floatAnimation() {
-      floatPosition += 0.02 * floatDirection;
-      if (floatPosition > 1 || floatPosition < -1) {
-        floatDirection *= -1;
-      }
-      heroIllustration.style.transform = 'translateY(' + (floatPosition * 8) + 'px)';
-      requestAnimationFrame(floatAnimation);
+    function nextSlide() {
+      heroSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % heroSlides.length;
+      heroSlides[currentSlide].classList.add('active');
     }
 
-    floatAnimation();
+    setInterval(nextSlide, slideInterval);
   }
 
   // Close mobile menu on window resize
