@@ -898,8 +898,9 @@ ul {
 
 .team-grid-2 {
   grid-template-columns: repeat(2, 1fr);
-  max-width: 500px;
+  max-width: 700px;
   margin: 0 auto;
+  gap: 48px;
 }
 
 .team-card {
@@ -1277,7 +1278,8 @@ ul {
   }
 
   /* Brands */
-  .brands-list {
+  .brands-list,
+  .brands-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1306,12 +1308,23 @@ ul {
     gap: 24px;
   }
 
+  .team-grid-2 {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    gap: 40px;
+  }
+
   .team-image {
     margin-bottom: 16px;
   }
 
   .team-info h3 {
     font-size: 0.875rem;
+  }
+
+  .team-profile {
+    font-size: 0.75rem;
+    line-height: 1.9;
   }
 
   /* Company */
