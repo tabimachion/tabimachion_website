@@ -437,8 +437,11 @@ ul {
   max-width: 280px;
 }
 
-.service-media .instagram-media {
-  margin: 0 !important;
+.service-media video {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
 .service-number {
