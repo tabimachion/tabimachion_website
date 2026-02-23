@@ -104,20 +104,48 @@ document.addEventListener('DOMContentLoaded', function() {
   // Hero video carousel (デスクトップのみ)
   const heroSlides = document.querySelectorAll('.hero-slide');
   let carouselInterval = null;
+  let videosLoaded = { desktop: false, mobile: false };
 
   function isDesktop() {
     return window.innerWidth >= 769;
   }
 
+  // 動画を読み込んで再生
+  function loadVideo(video) {
+    if (!video.src && video.dataset.src) {
+      video.src = video.dataset.src;
+      video.load();
+    }
+  }
+
+  // モバイル: 1本目のみ読み込み
+  function loadMobileVideo() {
+    if (videosLoaded.mobile) return;
+    const firstVideo = heroSlides[0]?.querySelector('video');
+    if (firstVideo) {
+      loadVideo(firstVideo);
+      firstVideo.play();
+      videosLoaded.mobile = true;
+    }
+  }
+
+  // デスクトップ: 全動画読み込み
+  function loadDesktopVideos() {
+    if (videosLoaded.desktop) return;
+    heroSlides.forEach(function(slide) {
+      const video = slide.querySelector('video');
+      if (video) {
+        loadVideo(video);
+        video.play();
+      }
+    });
+    videosLoaded.desktop = true;
+  }
+
   function startCarousel() {
     if (heroSlides.length > 1 && isDesktop() && !carouselInterval) {
+      loadDesktopVideos();
       let currentSlide = 0;
-
-      // 全動画を再生
-      heroSlides.forEach(function(slide) {
-        const video = slide.querySelector('video');
-        if (video) video.play();
-      });
 
       carouselInterval = setInterval(function() {
         heroSlides[currentSlide].classList.remove('active');
@@ -131,34 +159,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (carouselInterval) {
       clearInterval(carouselInterval);
       carouselInterval = null;
-
-      // モバイルでは最初の動画のみ再生
-      heroSlides.forEach(function(slide, index) {
-        const video = slide.querySelector('video');
-        if (video) {
-          if (index === 0) {
-            slide.classList.add('active');
-            video.play();
-          } else {
-            slide.classList.remove('active');
-            video.pause();
-          }
-        }
-      });
     }
+
+    // モバイルでは最初の動画のみ表示
+    heroSlides.forEach(function(slide, index) {
+      const video = slide.querySelector('video');
+      if (index === 0) {
+        slide.classList.add('active');
+        if (video && video.src) video.play();
+      } else {
+        slide.classList.remove('active');
+        if (video) video.pause();
+      }
+    });
   }
 
   // 初期化
   if (isDesktop()) {
     startCarousel();
   } else {
-    // モバイル: 最初の動画のみ再生
-    heroSlides.forEach(function(slide, index) {
-      const video = slide.querySelector('video');
-      if (video && index > 0) {
-        video.pause();
-      }
-    });
+    loadMobileVideo();
   }
 
   // リサイズ時に切り替え
