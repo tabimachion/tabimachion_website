@@ -236,12 +236,6 @@ ul {
   position: relative;
   z-index: 2;
   max-width: 800px;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .hero-logo {
@@ -1069,9 +1063,8 @@ ul {
   }
 
   .hero-content {
-    padding: 24px;
+    padding: 0;
     margin: 0;
-    border-radius: 12px;
   }
 
   .hero-logo {
