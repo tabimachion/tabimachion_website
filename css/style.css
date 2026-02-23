@@ -434,13 +434,15 @@ ul {
 
 .service-media {
   flex-shrink: 0;
-  max-width: 280px;
+  width: 160px;
+  overflow: hidden;
 }
 
 .service-media video {
   width: 100%;
-  max-height: 400px;
-  object-fit: cover;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
 }
