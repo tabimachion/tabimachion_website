@@ -449,11 +449,13 @@ ul {
 
 .service-media-youtube {
   width: 280px;
+  overflow: visible;
 }
 
 .service-media-youtube iframe {
   width: 100%;
   height: 158px;
+  border: none;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
 }
