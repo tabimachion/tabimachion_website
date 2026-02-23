@@ -133,14 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
     videoObserver.observe(video);
   });
 
-  // Hero video carousel (デスクトップのみ)
+  // Hero video carousel（モバイル・デスクトップ共通）
   const heroSlides = document.querySelectorAll('.hero-slide');
   let carouselInterval = null;
-  let videosLoaded = { desktop: false, mobile: false };
-
-  function isDesktop() {
-    return window.innerWidth >= 769;
-  }
+  let videosLoaded = false;
 
   // 動画を読み込んで再生
   function loadVideo(video) {
@@ -150,20 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // モバイル: 1本目のみ読み込み
-  function loadMobileVideo() {
-    if (videosLoaded.mobile) return;
-    const firstVideo = heroSlides[0]?.querySelector('video');
-    if (firstVideo) {
-      loadVideo(firstVideo);
-      firstVideo.play();
-      videosLoaded.mobile = true;
-    }
-  }
-
-  // デスクトップ: 全動画読み込み
-  function loadDesktopVideos() {
-    if (videosLoaded.desktop) return;
+  // 全動画読み込み
+  function loadAllVideos() {
+    if (videosLoaded) return;
     heroSlides.forEach(function(slide) {
       const video = slide.querySelector('video');
       if (video) {
@@ -171,12 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
         video.play();
       }
     });
-    videosLoaded.desktop = true;
+    videosLoaded = true;
   }
 
   function startCarousel() {
-    if (heroSlides.length > 1 && isDesktop() && !carouselInterval) {
-      loadDesktopVideos();
+    if (heroSlides.length > 1 && !carouselInterval) {
+      loadAllVideos();
       let currentSlide = 0;
 
       carouselInterval = setInterval(function() {
@@ -187,40 +172,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  function stopCarousel() {
-    if (carouselInterval) {
-      clearInterval(carouselInterval);
-      carouselInterval = null;
-    }
-
-    // モバイルでは最初の動画のみ表示
-    heroSlides.forEach(function(slide, index) {
-      const video = slide.querySelector('video');
-      if (index === 0) {
-        slide.classList.add('active');
-        if (video && video.src) video.play();
-      } else {
-        slide.classList.remove('active');
-        if (video) video.pause();
-      }
-    });
-  }
-
   // 初期化
-  if (isDesktop()) {
-    startCarousel();
-  } else {
-    loadMobileVideo();
-  }
-
-  // リサイズ時に切り替え
-  window.addEventListener('resize', function() {
-    if (isDesktop()) {
-      startCarousel();
-    } else {
-      stopCarousel();
-    }
-  });
+  startCarousel();
 
   // Close mobile menu on window resize
   window.addEventListener('resize', function() {
