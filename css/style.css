@@ -283,10 +283,19 @@ ul {
   margin-bottom: 24px;
 }
 
+.hero-tagline {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
 .hero-description {
   font-size: 0.875rem;
   line-height: 2;
-  color: var(--color-text);
+  color: var(--color-text-light);
   margin-bottom: 32px;
   letter-spacing: 0.02em;
   text-align: left;
@@ -330,6 +339,11 @@ ul {
   }
 
   .hero-company {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-tagline {
     font-size: 1.5rem;
     margin-bottom: 24px;
   }

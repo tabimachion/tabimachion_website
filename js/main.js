@@ -103,10 +103,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  // Observe elements for animation
+  // Observe elements for animation (staggered)
   const animatedElements = document.querySelectorAll(
     '.section-header, .about-content, .feature-item, ' +
-    '.service-item, .brand-item, .work-card, .team-card, ' +
+    '.service-item, .brand-item, .work-card, ' +
     '.company-content, .contact-content, .partner-item'
   );
 
@@ -115,6 +115,15 @@ document.addEventListener('DOMContentLoaded', function() {
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
     el.style.transitionDelay = (index % 6) * 0.1 + 's';
+    observer.observe(el);
+  });
+
+  // Team cards - 同時に表示
+  const teamCards = document.querySelectorAll('.team-card');
+  teamCards.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
     observer.observe(el);
   });
 
